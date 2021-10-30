@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
-using Comandos;
+using Comandos.Usuario;
 using Resultados;
 using Data;
-
+// AGREGAR VALIDACIONES
 namespace APD_Backend.Controllers
 {
     [ApiController]
