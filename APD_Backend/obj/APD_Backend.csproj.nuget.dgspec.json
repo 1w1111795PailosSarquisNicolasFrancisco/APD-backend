@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\trash\\Desktop\\APD_Backend\\APD_Backend\\APD_Backend.csproj": {}
+    "C:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {}
   },
   "projects": {
-    "c:\\Users\\trash\\Desktop\\APD_Backend\\APD_Backend\\APD_Backend.csproj": {
+    "C:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\trash\\Desktop\\APD_Backend\\APD_Backend\\APD_Backend.csproj",
+        "projectUniqueName": "C:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
         "projectName": "APD_Backend",
-        "projectPath": "c:\\Users\\trash\\Desktop\\APD_Backend\\APD_Backend\\APD_Backend.csproj",
+        "projectPath": "C:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
         "packagesPath": "C:\\Users\\trash\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\trash\\Desktop\\APD_Backend\\APD_Backend\\obj\\",
+        "outputPath": "C:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\trash\\AppData\\Roaming\\NuGet\\NuGet.Config",
