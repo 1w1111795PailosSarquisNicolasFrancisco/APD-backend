@@ -9,7 +9,7 @@ using Models;
 using Comandos.Usuario;
 using Resultados;
 using Data;
-// AGREGAR VALIDACIONES
+
 namespace APD_Backend.Controllers
 {
     [ApiController]
@@ -54,5 +54,4 @@ namespace APD_Backend.Controllers
         }
     }
     
-
 }

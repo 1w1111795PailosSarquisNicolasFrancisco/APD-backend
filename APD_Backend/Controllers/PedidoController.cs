@@ -10,7 +10,7 @@ using Comandos;
 using Resultados;
 using Data;
 using Comandos.Pedidos;
-// AGREGAR VALIDACIONES
+
 namespace APD_Backend.Controllers
 {
     [ApiController]
@@ -38,6 +38,23 @@ namespace APD_Backend.Controllers
         [Route("Pedidos/AltaPedidos")]
         public ActionResult<ResultadoAPI> AltaPersonaComando([FromBody]ComandoCrearPedido comando, string token) {
             var resultado = new ResultadoAPI();
+
+            if (comando.id.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del pedido";
+                return resultado;
+            }
+            if (comando.idCliente.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del cliente";
+                return resultado;
+            }
+            if (comando.estado.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese Estado";
+                return resultado;
+            }
+
             var ped = new Pedidos();
             ped.id = comando.id;
             ped.estado = comando.estado;
@@ -54,6 +71,23 @@ namespace APD_Backend.Controllers
         [Route("Pedidos/UpdatePedidos")]
         public ActionResult<ResultadoAPI> UpdatePedidos([FromBody]ComandoUpdatePedido comando, string token) {
             var resultado = new ResultadoAPI();
+
+            if (comando.id.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del pedido";
+                return resultado;
+            }
+            if (comando.idCliente.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del cliente";
+                return resultado;
+            }
+            if (comando.estado.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese Estado";
+                return resultado;
+            }
+
             var ped = db.Pedidos.Where(c => c.id == comando.id).FirstOrDefault();
             if (ped != null)
             {
@@ -73,6 +107,12 @@ namespace APD_Backend.Controllers
         [Route("Pedidos/EliminarPedido/{idPedido}")]
         public ActionResult<ResultadoAPI> EliminarPedido(int idPedido, string token) {
             var resultado = new ResultadoAPI();
+
+            if (idPedido.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del pedido";
+                return resultado;
+            }
 
             var ped = db.Pedidos.Where(c => c.id == idPedido).FirstOrDefault();
             if (ped != null) {
