@@ -47,7 +47,7 @@ namespace APD_Backend.Controllers
 
             foreach (Articulos art in ListaArticulos)
             {
-                ArticuloCantidad arti = new ArticuloCantidad();
+                ArticulosCantidad arti = new ArticulosCantidad();
 
                 var ListaArticuloXPedido = db.ArticuloXPedido.ToList();
                 var cant = db.ArticuloXPedido.Where(c => c.idArticulo == art.id).ToList().Count();
@@ -58,7 +58,7 @@ namespace APD_Backend.Controllers
                 lista.Add(arti);
             }
 
-            resultado.Return = Articulo;
+            resultado.Return = lista;
             return resultado;
         }
 
