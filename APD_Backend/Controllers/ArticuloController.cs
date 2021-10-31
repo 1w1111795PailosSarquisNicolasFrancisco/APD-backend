@@ -43,14 +43,19 @@ namespace APD_Backend.Controllers
             resultado.Ok = true;
             var ListaArticulos = db.Articulos.ToList();
             
-            var Articulo = new Dictionary<string, int>();
+            List<ArticulosCantidad> lista = new List<ArticulosCantidad>();
 
             foreach (Articulos art in ListaArticulos)
             {
+                ArticuloCantidad arti = new ArticuloCantidad();
+
                 var ListaArticuloXPedido = db.ArticuloXPedido.ToList();
                 var cant = db.ArticuloXPedido.Where(c => c.idArticulo == art.id).ToList().Count();
+
+                arti.nombre = art.nombre;
+                arti.cantidad = cant;
                 
-                Articulo.Add(art.nombre, cant);
+                lista.Add(arti);
             }
 
             resultado.Return = Articulo;
