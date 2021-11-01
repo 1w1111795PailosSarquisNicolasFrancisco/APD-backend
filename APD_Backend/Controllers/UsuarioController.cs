@@ -52,6 +52,116 @@ namespace APD_Backend.Controllers
                 return resultado;
             }
         }
-    }
+
+        [HttpPost]
+        [Route("Usuario/AltaUsuario")]
+        public ActionResult<ResultadoAPI> CrearUsuario([FromBody]ComandoCrearUsuario comando, string token) {
+            var resultado = new ResultadoAPI();
+
+            if (comando.user.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese nombre de usuario";
+                return resultado;
+            }
+            if (comando.password.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese la contraseña del usuario";
+                return resultado;
+            }
+            if (comando.idRol.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Debe seleccionar un rol de usuario";
+                return resultado;
+            }
+
+            var usu = new Usuarios();
+            usu.usuario = comando.user;
+            usu.clave = comando.password;
+            usu.idRol = comando.idRol;
+
+            db.Usuarios.Add(usu);
+            db.SaveChanges();
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
+            return resultado;
+        }
     
+
+    [HttpPut]
+        [Route("Usuario/UpdateUsuario")]
+        public ActionResult<ResultadoAPI> UpdateUsuario([FromBody]ComandoUpdateUsuario comando, string token) {
+            var resultado = new ResultadoAPI();
+
+            if (comando.id.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Debe seleccionar un usuario";
+                return resultado;
+            }
+            if (comando.user.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese nombre de usuario";
+                return resultado;
+            }
+            if (comando.password.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese la contraseña del usuario";
+                return resultado;
+            }
+            if (comando.idRol.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Debe seleccionar un rol de usuario";
+                return resultado;
+            }
+
+            var usu = db.Usuarios.Where(c => c.id == comando.id).FirstOrDefault();
+            if (usu != null)
+            {
+                usu.usuario = comando.user;
+                usu.clave = comando.password;
+                usu.idRol = comando.idRol;
+                db.Usuarios.Update(usu);
+                db.SaveChanges();
+            }
+
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
+
+            return resultado;
+        }
+
+        [HttpPut]
+        [Route("Usuario/EliminarUsuario/{idUsuario}")]
+        public ActionResult<ResultadoAPI> EliminarUsuario(int idUsuario, string token) {
+            var resultado = new ResultadoAPI();
+
+            if (idUsuario.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese ID del usuario";
+                return resultado;
+            }
+
+            var usu = db.Usuarios.Where(c => c.id == idUsuario).FirstOrDefault();
+            if (usu != null) {
+                db.Usuarios.Remove(usu);
+                db.SaveChanges();
+            }
+
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
+
+            return resultado;
+
+        }
+
+        [HttpGet]
+        [Route("Usuario/ObtenerUsuarios")]
+        public ActionResult<ResultadoAPI> Get(string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
+            return resultado;
+        }
+
+    
+}
 }
