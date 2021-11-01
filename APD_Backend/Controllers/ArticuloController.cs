@@ -108,8 +108,8 @@ namespace APD_Backend.Controllers
         }
 
         [HttpPut]
-        [Route("Pedidos/UpdatePedidos")]
-        public ActionResult<ResultadoAPI> UpdatePedidos([FromBody]ComandoUpdateArticulo comando, string token) {
+        [Route("Articulos/UpdateArticulo")]
+        public ActionResult<ResultadoAPI> UpdateArticulo([FromBody]ComandoUpdateArticulo comando, string token) {
             var resultado = new ResultadoAPI();
 
             if (comando.id.Equals(null)) {

@@ -104,18 +104,23 @@ namespace APD_Backend.Controllers
         }
 
         [HttpPut]
-        [Route("Pedidos/EliminarPedido/{idPedido}")]
-        public ActionResult<ResultadoAPI> EliminarPedido(int idPedido, string token) {
+        [Route("Pedidos/EliminarPedido/{id}")]
+        public ActionResult<ResultadoAPI> EliminarPedido(String id, string token) {
             var resultado = new ResultadoAPI();
 
-            if (idPedido.Equals("")) {
+            if (id.Equals(null)) {
                 resultado.Ok = false;
                 resultado.Error = "Ingrese ID del pedido";
                 return resultado;
             }
 
-            var ped = db.Pedidos.Where(c => c.id == idPedido).FirstOrDefault();
+            var detxped = db.ArticuloXPedido.Where(c => c.idPedido == Int32.Parse(id));
+            var ped = db.Pedidos.Where(c => c.id == Int32.Parse(id)).FirstOrDefault();
             if (ped != null) {
+                foreach (var detalle in detxped)
+                {
+                    db.ArticuloXPedido.Remove(detalle);
+                }
                 db.Pedidos.Remove(ped);
                 db.SaveChanges();
             }
@@ -125,8 +130,8 @@ namespace APD_Backend.Controllers
 
             return resultado;
 
-    }
+        }
     
 
-}
+    }
 }
