@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {}
+    "c:\\Users\\Mateo\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {}
   },
   "projects": {
-    "c:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {
+    "c:\\Users\\Mateo\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
+        "projectUniqueName": "c:\\Users\\Mateo\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
         "projectName": "APD_Backend",
-        "projectPath": "c:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
-        "packagesPath": "C:\\Users\\trash\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\trash\\Documents\\GitHub\\APD-backend\\APD_Backend\\obj\\",
+        "projectPath": "c:\\Users\\Mateo\\Documents\\GitHub\\APD-backend\\APD_Backend\\APD_Backend.csproj",
+        "packagesPath": "C:\\Users\\Mateo\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Mateo\\Documents\\GitHub\\APD-backend\\APD_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\trash\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mateo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
