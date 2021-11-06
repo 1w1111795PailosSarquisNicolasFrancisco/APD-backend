@@ -36,6 +36,15 @@ namespace APD_Backend.Controllers
             return resultado;
         }
 
+        [HttpGet]
+        [Route("Cliente/ObtenerZonas")]
+        public ActionResult<ResultadoAPI> GetZonas(string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Zonas.ToList();
+            return resultado;
+        }
+
         [HttpPost]
         [Route("Clientes/AltaCliente")]
         public ActionResult<ResultadoAPI> AltaClienteComando([FromBody]ComandoCrearCliente comando, string token) {
@@ -44,11 +53,6 @@ namespace APD_Backend.Controllers
             if (comando.nombre.Equals("")) {
                 resultado.Ok = false;
                 resultado.Error = "Ingrese nombre del Cliente";
-                return resultado;
-            }
-            if (comando.cantidadPedidos.Equals("")) {
-                resultado.Ok = false;
-                resultado.Error = "Ingrese la cantidad de pedidos del cliente";
                 return resultado;
             }
             if (comando.clasificaciones.Equals(null)) {
@@ -79,7 +83,6 @@ namespace APD_Backend.Controllers
 
             var cli = new Clientes();
             cli.nombre = comando.nombre;
-            cli.cantidadPedidos = comando.cantidadPedidos;
             cli.clasificaciones = comando.clasificaciones;
             cli.telefono = comando.telefono;
             cli.mail = comando.mail;
