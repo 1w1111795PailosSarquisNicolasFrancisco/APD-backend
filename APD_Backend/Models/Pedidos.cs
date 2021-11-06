@@ -11,6 +11,6 @@ namespace Models {
         public string estado {get; set;}
         public int idCliente {get; set;}
         [ForeignKey("idCliente")]
-        public Roles Clientes {get; set;}
+        public Clientes Clientes {get; set;}
     }
 }

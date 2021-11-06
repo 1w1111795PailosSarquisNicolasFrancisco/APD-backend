@@ -16,6 +16,6 @@ namespace Models {
         public string direccion {get; set;}
         public int idZona {get; set;}
         [ForeignKey("idZona")]
-        public Roles Zonas {get; set;}
+        public Zonas Zonas {get; set;}
     }
 }

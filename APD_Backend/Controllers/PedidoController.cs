@@ -39,11 +39,6 @@ namespace APD_Backend.Controllers
         public ActionResult<ResultadoAPI> AltaPersonaComando([FromBody]ComandoCrearPedido comando, string token) {
             var resultado = new ResultadoAPI();
 
-            if (comando.id.Equals("")) {
-                resultado.Ok = false;
-                resultado.Error = "Ingrese ID del pedido";
-                return resultado;
-            }
             if (comando.idCliente.Equals("")) {
                 resultado.Ok = false;
                 resultado.Error = "Ingrese ID del cliente";
@@ -56,9 +51,9 @@ namespace APD_Backend.Controllers
             }
 
             var ped = new Pedidos();
-            ped.id = comando.id;
             ped.estado = comando.estado;
             ped.idCliente = comando.idCliente;
+            ped.Clientes = db.Clientes.Where(c => c.id == comando.idCliente).FirstOrDefault();
 
             db.Pedidos.Add(ped);
             db.SaveChanges();
