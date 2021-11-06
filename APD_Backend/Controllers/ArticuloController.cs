@@ -67,11 +67,6 @@ namespace APD_Backend.Controllers
         public ActionResult<ResultadoAPI> AltaPersonaComando([FromBody]ComandoCrearArticulo comando, string token) {
             var resultado = new ResultadoAPI();
 
-            if (comando.id.Equals(null)) {
-                resultado.Ok = false;
-                resultado.Error = "Ingrese ID del articulo";
-                return resultado;
-            }
             if (comando.nombre.Equals("")) {
                 resultado.Ok = false;
                 resultado.Error = "Ingrese nombre del articulo";
@@ -94,11 +89,11 @@ namespace APD_Backend.Controllers
             }
 
             var art = new Articulos();
-            art.id = comando.id;
             art.nombre = comando.nombre;
             art.stock = comando.stock;
             art.precio = comando.precio;
             art.idProveedor = comando.idProveedor;
+            art.proveedores = db.Proveedores.Where(c => c.id == comando.idProveedor).FirstOrDefault();
 
             db.Articulos.Add(art);
             db.SaveChanges();
@@ -146,6 +141,7 @@ namespace APD_Backend.Controllers
                 art.stock = comando.stock;
                 art.precio = comando.precio;
                 art.idProveedor = comando.idProveedor;
+                art.proveedores = db.Proveedores.Where(c => c.id == comando.idProveedor).FirstOrDefault();
 
 
                 db.Articulos.Update(art);

@@ -85,6 +85,7 @@ namespace APD_Backend.Controllers
             cli.mail = comando.mail;
             cli.direccion = comando.direccion;
             cli.idZona = comando.idZona;
+            cli.Zonas = db.Zonas.Where(c => c.id == comando.idZona).FirstOrDefault();
 
             db.Clientes.Add(cli);
             db.SaveChanges();

@@ -78,6 +78,7 @@ namespace APD_Backend.Controllers
             usu.usuario = comando.user;
             usu.clave = comando.password;
             usu.idRol = comando.idRol;
+            usu.roles = db.Roles.Where(c => c.id == comando.idRol).FirstOrDefault();
 
             db.Usuarios.Add(usu);
             db.SaveChanges();
@@ -119,6 +120,7 @@ namespace APD_Backend.Controllers
                 usu.usuario = comando.user;
                 usu.clave = comando.password;
                 usu.idRol = comando.idRol;
+                usu.roles = db.Roles.Where(c => c.id == comando.idRol).FirstOrDefault();
                 db.Usuarios.Update(usu);
                 db.SaveChanges();
             }
