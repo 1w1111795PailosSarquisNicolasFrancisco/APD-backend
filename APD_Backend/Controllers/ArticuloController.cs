@@ -120,8 +120,11 @@ namespace APD_Backend.Controllers
 
                 if (art.stock == stoock)
                 {
+                    arti.id= art.id;
                     arti.nombre = art.nombre;
                     arti.stock = art.stock;
+                    arti.precio= art.precio;
+                    arti.idProveedor=art.idProveedor;
                     lista.Add(arti);
                 }
 
