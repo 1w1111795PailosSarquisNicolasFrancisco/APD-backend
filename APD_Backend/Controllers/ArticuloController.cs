@@ -102,6 +102,35 @@ namespace APD_Backend.Controllers
             return resultado;
         }
 
+        [HttpPost]
+        [Route("Articulos/AltaArticulosXPedido")]
+        public ActionResult<ResultadoAPI> AltaPersonaComando([FromBody]ComandoCrearArticuloXPedido comando, string token) {
+            var resultado = new ResultadoAPI();
+
+            if (comando.idArticulo.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese id del articulo";
+                return resultado;
+            }
+            if (comando.idPedido.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese id del pedido";
+                return resultado;
+            }
+
+            var artxped = new ArticuloXPedido();
+            artxped.idArticulo = comando.idArticulo;
+            artxped.idPedido = comando.idPedido;
+            artxped.articulos = db.Articulos.Where(c => c.id == comando.idArticulo).FirstOrDefault();
+            artxped.pedidos = db.Pedidos.Where(c => c.id == comando.idPedido).FirstOrDefault();
+
+            db.ArticuloXPedido.Add(artxped);
+            db.SaveChanges();
+            resultado.Ok = true;
+            resultado.Return = db.ArticuloXPedido.ToList();
+            return resultado;
+        }
+
         [HttpPut]
         [Route("Articulos/UpdateArticulo")]
         public ActionResult<ResultadoAPI> UpdateArticulo([FromBody]ComandoUpdateArticulo comando, string token) {
