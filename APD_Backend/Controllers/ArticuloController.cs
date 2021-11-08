@@ -128,6 +128,43 @@ namespace APD_Backend.Controllers
             db.SaveChanges();
             resultado.Ok = true;
             resultado.Return = db.ArticuloXPedido.ToList();
+
+            resultado.Return = lista;
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("Articulos/ReporteProductosSinStock")]
+        public ActionResult<ResultadoAPI> ReporteProductosSinStock(string token)
+        {
+            ResultadoAPI resultado = new ResultadoAPI();
+
+            resultado.Ok = true;
+            var ListaArticulos = db.Articulos.ToList();
+
+            List<Articulos> lista = new List<Articulos>();
+
+            foreach (Articulos art in ListaArticulos)
+            {
+                var stoock = 0;
+                Articulos arti = new Articulos();
+
+                if (art.stock == stoock)
+                {
+                    arti.id= art.id;
+                    arti.nombre = art.nombre;
+                    arti.stock = art.stock;
+                    arti.precio= art.precio;
+                    arti.idProveedor=art.idProveedor;
+                    lista.Add(arti);
+                }
+
+
+
+
+            }
+
+            resultado.Return = lista;
             return resultado;
         }
 
