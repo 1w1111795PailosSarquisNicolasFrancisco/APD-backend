@@ -129,7 +129,6 @@ namespace APD_Backend.Controllers
             resultado.Ok = true;
             resultado.Return = db.ArticuloXPedido.ToList();
 
-            resultado.Return = lista;
             return resultado;
         }
 
