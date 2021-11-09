@@ -9,6 +9,7 @@ namespace Models {
         [Key]
         public int id {get; set;}
         public int idArticulo {get; set;}
+        public int cantidad {get; set;}
         [ForeignKey("idArticulo")]
         public Articulos articulos {get; set;}
         public int idPedido {get; set;}
