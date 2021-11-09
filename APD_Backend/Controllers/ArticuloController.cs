@@ -117,10 +117,16 @@ namespace APD_Backend.Controllers
                 resultado.Error = "Ingrese id del pedido";
                 return resultado;
             }
+            if (comando.cantidad.Equals(null)) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese id del pedido";
+                return resultado;
+            }
 
             var artxped = new ArticuloXPedido();
             artxped.idArticulo = comando.idArticulo;
             artxped.idPedido = comando.idPedido;
+            artxped.cantidad = comando.cantidad;
             artxped.articulos = db.Articulos.Where(c => c.id == comando.idArticulo).FirstOrDefault();
             artxped.pedidos = db.Pedidos.Where(c => c.id == comando.idPedido).FirstOrDefault();
 
