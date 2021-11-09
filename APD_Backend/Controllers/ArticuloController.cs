@@ -272,5 +272,14 @@ namespace APD_Backend.Controllers
             resultado.Return = lista;
             return resultado;
         }
+
+         [HttpGet]
+        [Route("Articulos/ObtenerProveedores")]
+        public ActionResult<ResultadoAPI> GetProveedores(string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Proveedores.ToList();
+            return resultado;
+        }
     }
 }
