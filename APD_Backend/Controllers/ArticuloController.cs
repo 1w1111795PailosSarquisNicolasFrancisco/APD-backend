@@ -248,5 +248,29 @@ namespace APD_Backend.Controllers
             return resultado;
 
         }
+
+        [HttpGet]
+        [Route("Articulos/ObtenerArticulosXPedido/{idPedido}")]
+        public ActionResult<ResultadoAPI> Get(int idPedido, string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            var ListaArticulosxped = db.ArticuloXPedido.ToList();
+            
+            List<ArticuloXPedido> lista = new List<ArticuloXPedido>();
+
+            foreach (ArticuloXPedido art in ListaArticulosxped)
+            {
+               if(art.idPedido == idPedido){
+                   var pedido = db.Pedidos.Where(c => c.id == art.idPedido).FirstOrDefault();
+                   var articulo = db.Articulos.Where(c => c.id == art.idArticulo).FirstOrDefault();
+                   art.pedidos = pedido;
+                   art.articulos = articulo;
+                    lista.Add(art);
+               }                
+                
+            }
+            resultado.Ok = true;
+            resultado.Return = lista;
+            return resultado;
+        }
     }
 }
