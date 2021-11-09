@@ -29,8 +29,14 @@ namespace APD_Backend.Controllers
         [Route("Pedidos/ObtenerPedidos")]
         public ActionResult<ResultadoAPI> Get(string token){
             ResultadoAPI resultado = new ResultadoAPI();
+            var listaPedidos = db.Pedidos.ToList();
+            foreach (Pedidos ped in listaPedidos)
+            {
+                ped.Clientes = db.Clientes.Where(c => c.id == ped.idCliente).FirstOrDefault();
+                
+            }
             resultado.Ok = true;
-            resultado.Return = db.Pedidos.ToList();
+            resultado.Return = listaPedidos;
             return resultado;
         }
 
