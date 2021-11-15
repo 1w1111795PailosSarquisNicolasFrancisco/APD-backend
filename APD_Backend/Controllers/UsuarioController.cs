@@ -159,8 +159,14 @@ namespace APD_Backend.Controllers
         [Route("Usuario/ObtenerUsuarios")]
         public ActionResult<ResultadoAPI> Get(string token){
             ResultadoAPI resultado = new ResultadoAPI();
+            var usuarios = db.Usuarios.ToList();
+            foreach (Usuarios usu in usuarios)
+            {
+               usu.roles = db.Roles.Where(c => c.id == usu.idRol).FirstOrDefault();                 
+                
+            }
             resultado.Ok = true;
-            resultado.Return = db.Usuarios.ToList();
+            resultado.Return = usuarios;
             return resultado;
         }
 
