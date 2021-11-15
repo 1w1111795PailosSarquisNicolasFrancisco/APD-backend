@@ -1,3 +1,7 @@
+using System.Numerics;
+using System.ComponentModel;
+using System.Reflection.Emit;
+using System.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +41,29 @@ namespace APD_Backend.Controllers
             }
             resultado.Ok = true;
             resultado.Return = listaPedidos;
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("Pedidos/ObtenerPedidosPorCliente/{idCliente}")]
+        public ActionResult<ResultadoAPI> GetClientes(String idCliente, string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            var listaPedidos = db.Pedidos.ToList();
+            var listaFinal = new List<Pedidos>();
+            var id = Int32.Parse(idCliente);
+
+
+            foreach (Pedidos ped in listaPedidos)
+            {
+                if (ped.idCliente == id) {
+                    listaFinal.Add(ped);
+                    ped.Clientes = db.Clientes.Where(c => c.id == ped.idCliente).FirstOrDefault();
+                }
+
+                
+            }
+            resultado.Ok = true;
+            resultado.Return = listaFinal;
             return resultado;
         }
 
