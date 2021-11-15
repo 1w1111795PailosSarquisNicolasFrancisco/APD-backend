@@ -82,10 +82,16 @@ namespace APD_Backend.Controllers
                 resultado.Error = "Ingrese Estado";
                 return resultado;
             }
+            if (comando.fecha.Equals("")) {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese Fecha";
+                return resultado;
+            }
 
             var ped = new Pedidos();
             ped.estado = comando.estado;
             ped.idCliente = comando.idCliente;
+            ped.fecha = comando.fecha;
             ped.Clientes = db.Clientes.Where(c => c.id == comando.idCliente).FirstOrDefault();
 
             db.Pedidos.Add(ped);
@@ -121,6 +127,7 @@ namespace APD_Backend.Controllers
             {
                 ped.estado = comando.estado;
                 ped.idCliente = comando.idCliente;
+                ped.fecha = comando.fecha;
                 db.Pedidos.Update(ped);
                 db.SaveChanges();
             }
@@ -158,6 +165,25 @@ namespace APD_Backend.Controllers
 
             return resultado;
 
+        }
+
+        [HttpGet]
+        [Route("Pedidos/FiltrarPorFecha")]
+        public ActionResult<ResultadoAPI> FiltrarPorFecha(DateTime fechaInicial, DateTime fechaFinal, string token) {
+            ResultadoAPI resultado = new ResultadoAPI();
+            var listaPedidos = db.Pedidos.ToList();
+            var listaFinal = new List<Pedidos>();
+            foreach (Pedidos ped in listaPedidos)
+            {
+                if (ped.fecha > fechaInicial && ped.fecha < fechaFinal) {
+                    
+                    ped.Clientes = db.Clientes.Where(c => c.id == ped.idCliente).FirstOrDefault();
+                    listaFinal.Add(ped);
+                }
+            }
+            resultado.Ok = true;
+            resultado.Return = listaFinal;
+            return resultado;
         }
     
 

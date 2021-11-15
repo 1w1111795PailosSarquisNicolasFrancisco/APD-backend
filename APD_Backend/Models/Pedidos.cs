@@ -9,6 +9,7 @@ namespace Models {
         [Key]
         public int id {get; set;}
         public string estado {get; set;}
+        public DateTime fecha {get; set;}
         public int idCliente {get; set;}
         [ForeignKey("idCliente")]
         public Clientes Clientes {get; set;}
