@@ -185,5 +185,36 @@ namespace APD_Backend.Controllers
             return resultado;
 
         }
+
+        [HttpGet]
+        [Route("Clientes/reporteClientes")]
+        public ActionResult<ResultadoAPI> ObtenerReportes(DateTime lim_inf, DateTime lim_sup, string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            List<ClienteCantidad> lista = new List<ClienteCantidad>();
+            var clientes = db.Clientes.ToList();
+            foreach (Clientes cli in clientes)
+            {
+                ClienteCantidad cliCant = new ClienteCantidad();
+                var cantidad = 0;
+                var pedidos_del_cliente = db.Pedidos.Where(c => c.idCliente == cli.id).ToList();
+                foreach (Pedidos ped in pedidos_del_cliente)
+                {
+                 if ((lim_inf < ped.fecha) && (ped.fecha < lim_sup)){
+                    cantidad++;
+                 }   
+                }
+                cliCant.nombre = cli.nombre;
+                cliCant.cantidad = cantidad;
+                
+                lista.Add(cliCant);
+
+                
+            }
+
+            resultado.Ok = true;
+            resultado.Return = lista;
+            return resultado;
+        }
+
     }
 }
