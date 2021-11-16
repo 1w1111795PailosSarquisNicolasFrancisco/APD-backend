@@ -164,6 +164,15 @@ namespace APD_Backend.Controllers
             return resultado;
         }
 
+        [HttpGet]
+        [Route("Usuario/ObtenerRoles")]
+        public ActionResult<ResultadoAPI> GetRoles(string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Roles.ToList();
+            return resultado;
+        }
+
     
 }
 }
