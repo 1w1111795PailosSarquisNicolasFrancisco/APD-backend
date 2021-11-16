@@ -36,6 +36,59 @@ namespace APD_Backend.Controllers
             return resultado;
         }
 
+        [HttpGet]
+        [Route("Cliente/ObtenerClientesRepo")]
+        public ActionResult<ResultadoAPI> GetRepo(string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            List<ClienteCantidad> lista = new List<ClienteCantidad>();
+            var clientes = db.Clientes.ToList();
+            foreach (Clientes cli in clientes)
+            {
+                ClienteCantidad cliCant = new ClienteCantidad();
+                var cantidad = 0;
+                var pedidos_del_cliente = db.Pedidos.Where(c => c.idCliente == cli.id).ToList();
+                foreach (Pedidos ped in pedidos_del_cliente)
+                {
+                    cantidad++;
+                    
+                }
+                cliCant.nombre = cli.nombre;
+                cliCant.cantidad = cantidad;
+                if(cliCant.cantidad > 0 ){
+                    lista.Add(cliCant);
+                }
+                
+
+                
+            }
+
+            void Swap<T>(IList<T> list, int indexA, int indexB)
+            {
+                T tmp = list[indexA];
+                list[indexA] = list[indexB];
+                list[indexB] = tmp;
+            }
+
+            void IntArrayBubbleSort (List<ClienteCantidad> data)
+            {
+                int i, j;
+                int N = data.Count;
+
+                for (j=N-1; j>0; j--) {
+                    for (i=0; i<j; i++) {
+                     if (data[i].cantidad < data[i + 1].cantidad)
+                         Swap(data, i, i + 1);
+                 }
+                 }
+            }
+
+            IntArrayBubbleSort(lista);
+
+            resultado.Ok = true;
+            resultado.Return = lista.Take(10);
+            return resultado;
+        }
+
         [HttpPost]
         [Route("Clientes/AltaCliente")]
         public ActionResult<ResultadoAPI> AltaClienteComando([FromBody]ComandoCrearCliente comando, string token) {
@@ -206,13 +259,37 @@ namespace APD_Backend.Controllers
                 cliCant.nombre = cli.nombre;
                 cliCant.cantidad = cantidad;
                 
-                lista.Add(cliCant);
+                if(cliCant.cantidad > 0 ){
+                    lista.Add(cliCant);
+                }
 
                 
             }
 
+            void Swap<T>(IList<T> list, int indexA, int indexB)
+            {
+                T tmp = list[indexA];
+                list[indexA] = list[indexB];
+                list[indexB] = tmp;
+            }
+
+            void IntArrayBubbleSort (List<ClienteCantidad> data)
+            {
+                int i, j;
+                int N = data.Count;
+
+                for (j=N-1; j>0; j--) {
+                    for (i=0; i<j; i++) {
+                     if (data[i].cantidad < data[i + 1].cantidad)
+                         Swap(data, i, i + 1);
+                 }
+                 }
+            }
+
+            IntArrayBubbleSort(lista);
+
             resultado.Ok = true;
-            resultado.Return = lista;
+            resultado.Return = lista.Take(10);
             return resultado;
         }
 

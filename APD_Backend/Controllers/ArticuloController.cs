@@ -55,10 +55,88 @@ namespace APD_Backend.Controllers
                 arti.nombre = art.nombre;
                 arti.cantidad = cant;
                 
-                lista.Add(arti);
+                if(arti.cantidad > 0 ){
+                    lista.Add(arti);
+                }
             }
 
-            resultado.Return = lista;
+            void Swap<T>(IList<T> list, int indexA, int indexB)
+            {
+                T tmp = list[indexA];
+                list[indexA] = list[indexB];
+                list[indexB] = tmp;
+            }
+
+            void IntArrayBubbleSort (List<ArticulosCantidad> data)
+            {
+                int i, j;
+                int N = data.Count;
+
+                for (j=N-1; j>0; j--) {
+                    for (i=0; i<j; i++) {
+                     if (data[i].cantidad < data[i + 1].cantidad)
+                         Swap(data, i, i + 1);
+                 }
+                 }
+            }
+
+            IntArrayBubbleSort(lista);
+
+            resultado.Return = lista.Take(10);
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("Clientes/reporteArticulos")]
+        public ActionResult<ResultadoAPI> ObtenerReportes(DateTime lim_inf, DateTime lim_sup, string token){
+            ResultadoAPI resultado = new ResultadoAPI();
+            List<ArticulosCantidad> lista = new List<ArticulosCantidad>();
+            var articulos = db.Articulos.ToList();
+            
+            foreach (Articulos art in articulos)
+            {
+                ArticulosCantidad artCant = new ArticulosCantidad();
+                var cantidad = 0;
+                var artxped = db.ArticuloXPedido.Where(c => c.idArticulo == art.id).ToList();
+                foreach (ArticuloXPedido axp in artxped){
+                var pedido = db.Pedidos.Where(c => c.id == axp.idPedido).FirstOrDefault();
+                if ((lim_inf < pedido.fecha) && (pedido.fecha < lim_sup)){
+                    cantidad++;
+                 }   
+                }
+                artCant.nombre = art.nombre;
+                artCant.cantidad = cantidad;
+                
+                if(artCant.cantidad > 0 ){
+                    lista.Add(artCant);
+                }
+                
+            }
+
+            void Swap<T>(IList<T> list, int indexA, int indexB)
+            {
+                T tmp = list[indexA];
+                list[indexA] = list[indexB];
+                list[indexB] = tmp;
+            }
+
+            void IntArrayBubbleSort (List<ArticulosCantidad> data)
+            {
+                int i, j;
+                int N = data.Count;
+
+                for (j=N-1; j>0; j--) {
+                    for (i=0; i<j; i++) {
+                     if (data[i].cantidad < data[i + 1].cantidad)
+                         Swap(data, i, i + 1);
+                 }
+                 }
+            }
+
+            IntArrayBubbleSort(lista);
+
+            resultado.Ok = true;
+            resultado.Return = lista.Take(10);
             return resultado;
         }
 
